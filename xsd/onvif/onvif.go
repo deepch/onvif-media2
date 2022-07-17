@@ -1,7 +1,7 @@
 package onvif
 
 import (
-	"github.com/use-go/onvif/xsd"
+	"github.com/deepch/onvif-media2/xsd"
 )
 
 // BUG(r): Enum types implemented as simple string
@@ -429,6 +429,34 @@ type VideoEncoderConfiguration struct {
 	H264           H264Configuration      `xml:"onvif:H264"`
 	Multicast      MulticastConfiguration `xml:"onvif:Multicast"`
 	SessionTimeout xsd.Duration           `xml:"onvif:SessionTimeout"`
+}
+
+type VideoEncoder2Configuration struct {
+	ConfigurationEntity
+	Encoding            VideoEncoding          `xml:"http://www.onvif.org/ver20/media/wsdl Encoding,omitempty"`
+	Resolution          VideoResolution2       `xml:"http://www.onvif.org/ver10/schema Resolution,omitempty"`
+	RateControl         VideoRateControl2      `xml:"http://www.onvif.org/ver10/schema RateControl,omitempty"`
+	Multicast           MulticastConfiguration `xml:"http://www.onvif.org/ver10/schema Multicast,omitempty"`
+	Quality             float64                `xml:"http://www.onvif.org/ver10/schema Quality,omitempty"`
+	GovLength           int32                  `xml:"http://www.onvif.org/ver10/schema GovLength,attr,omitempty"`
+	Profile             string                 `xml:"http://www.onvif.org/ver20/media/wsdl Profile,attr,omitempty"`
+	GuaranteedFrameRate xsd.Boolean            `xml:"http://www.onvif.org/ver20/media/wsdl GuaranteedFrameRate,attr,omitempty"`
+}
+
+type VideoRateControl2 struct {
+	FrameRateLimit  xsd.Float   `xml:"http://www.onvif.org/ver10/schema FrameRateLimit,omitempty"`
+	BitrateLimit    xsd.Int     `xml:"http://www.onvif.org/ver10/schema BitrateLimit,omitempty"`
+	ConstantBitRate xsd.Boolean `xml:"http://www.onvif.org/ver20/media/wsdl ConstantBitRate,attr,omitempty"`
+}
+
+// VideoResolution2 type
+type VideoResolution2 struct {
+
+	// Number of the columns of the Video image.
+	Width int32 `xml:"http://www.onvif.org/ver10/schema Width,omitempty"`
+
+	// Number of the lines of the Video image.
+	Height int32 `xml:"http://www.onvif.org/ver10/schema Height,omitempty"`
 }
 
 type VideoEncoding xsd.String

@@ -1,7 +1,8 @@
-package example
+package main
 
 import (
 	"encoding/json"
+	"github.com/deepch/onvif-media2"
 	"io/ioutil"
 	"log"
 	"path"
@@ -10,9 +11,8 @@ import (
 	"testing"
 
 	"github.com/beevik/etree"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/device"
-	discover "github.com/use-go/onvif/ws-discovery"
+	"github.com/deepch/onvif-media2/device"
+	discover "github.com/deepch/onvif-media2/ws-discovery"
 )
 
 func TestGetAvailableDevicesAtSpecificEthernetInterface(t *testing.T) {

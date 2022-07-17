@@ -67,6 +67,7 @@ func (msg SoapMessage) Body() string {
 
 //AddStringBodyContent for Envelope
 func (msg *SoapMessage) AddStringBodyContent(data string) {
+
 	doc := etree.NewDocument()
 
 	if err := doc.ReadFromString(data); err != nil {

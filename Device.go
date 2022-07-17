@@ -12,10 +12,10 @@ import (
 	"strings"
 
 	"github.com/beevik/etree"
-	"github.com/use-go/onvif/device"
-	"github.com/use-go/onvif/gosoap"
-	"github.com/use-go/onvif/networking"
-	wsdiscovery "github.com/use-go/onvif/ws-discovery"
+	"github.com/deepch/onvif-media2/device"
+	"github.com/deepch/onvif-media2/gosoap"
+	"github.com/deepch/onvif-media2/networking"
+	wsdiscovery "github.com/deepch/onvif-media2/ws-discovery"
 )
 
 //Xlmns XML Scheam
@@ -23,6 +23,7 @@ var Xlmns = map[string]string{
 	"onvif":   "http://www.onvif.org/ver10/schema",
 	"tds":     "http://www.onvif.org/ver10/device/wsdl",
 	"tr2":     "http://www.onvif.org/ver20/media/wsdl",
+	"tt":      "http://www.onvif.org/ver10/schema",
 	"trt":     "http://www.onvif.org/ver10/media/wsdl",
 	"tev":     "http://www.onvif.org/ver10/events/wsdl",
 	"tptz":    "http://www.onvif.org/ver20/ptz/wsdl",
@@ -233,7 +234,9 @@ func (dev Device) buildMethodSOAP(msg string) (gosoap.SoapMessage, error) {
 
 //getEndpoint functions get the target service endpoint in a better way
 func (dev Device) getEndpoint(endpoint string) (string, error) {
-
+	if endpoint == "media2" {
+		endpoint = "media"
+	}
 	// common condition, endpointMark in map we use this.
 	if endpointURL, bFound := dev.endpoints[endpoint]; bFound {
 		return endpointURL, nil

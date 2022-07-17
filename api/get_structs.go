@@ -2,10 +2,11 @@ package api
 
 import (
 	"errors"
+	"github.com/deepch/onvif-media2/media2"
 
-	"github.com/use-go/onvif/device"
-	"github.com/use-go/onvif/media"
-	"github.com/use-go/onvif/ptz"
+	"github.com/deepch/onvif-media2/device"
+	"github.com/deepch/onvif-media2/media"
+	"github.com/deepch/onvif-media2/ptz"
 )
 
 func getPTZStructByName(name string) (interface{}, error) {
@@ -418,6 +419,172 @@ func getMediaStructByName(name string) (interface{}, error) {
 		return &media.CreateOSD{}, nil
 	case "DeleteOSD":
 		return &media.DeleteOSD{}, nil
+	default:
+		return nil, errors.New("there is no such method in the Media service")
+	}
+
+}
+
+func getMedia2StructByName(name string) (interface{}, error) {
+	switch name {
+	case "GetServiceCapabilities":
+		return &media2.GetServiceCapabilities{}, nil
+	case "GetVideoSources":
+		return &media2.GetVideoSources{}, nil
+	case "GetAudioSources":
+		return &media2.GetAudioSources{}, nil
+	case "GetAudioOutputs":
+		return &media2.GetAudioOutputs{}, nil
+	case "CreateProfile":
+		return &media2.CreateProfile{}, nil
+	case "GetProfile":
+		return &media2.GetProfile{}, nil
+	case "GetProfiles":
+		return &media2.GetProfiles{}, nil
+	case "AddVideoEncoderConfiguration":
+		return &media2.AddVideoEncoderConfiguration{}, nil
+	case "RemoveVideoEncoderConfiguration":
+		return &media2.RemoveVideoEncoderConfiguration{}, nil
+	case "AddVideoSourceConfiguration":
+		return &media2.AddVideoSourceConfiguration{}, nil
+	case "RemoveVideoSourceConfiguration":
+		return &media2.RemoveVideoSourceConfiguration{}, nil
+	case "AddAudioEncoderConfiguration":
+		return &media2.AddAudioEncoderConfiguration{}, nil
+	case "RemoveAudioEncoderConfiguration":
+		return &media2.RemoveAudioEncoderConfiguration{}, nil
+	case "AddAudioSourceConfiguration":
+		return &media2.AddAudioSourceConfiguration{}, nil
+	case "RemoveAudioSourceConfiguration":
+		return &media2.RemoveAudioSourceConfiguration{}, nil
+	case "AddPTZConfiguration":
+		return &media2.AddPTZConfiguration{}, nil
+	case "RemovePTZConfiguration":
+		return &media2.RemovePTZConfiguration{}, nil
+	case "AddVideoAnalyticsConfiguration":
+		return &media2.AddVideoAnalyticsConfiguration{}, nil
+	case "RemoveVideoAnalyticsConfiguration":
+		return &media2.RemoveVideoAnalyticsConfiguration{}, nil
+	case "AddMetadataConfiguration":
+		return &media2.AddMetadataConfiguration{}, nil
+	case "RemoveMetadataConfiguration":
+		return &media2.RemoveMetadataConfiguration{}, nil
+	case "AddAudioOutputConfiguration":
+		return &media2.AddAudioOutputConfiguration{}, nil
+	case "RemoveAudioOutputConfiguration":
+		return &media2.RemoveAudioOutputConfiguration{}, nil
+	case "AddAudioDecoderConfiguration":
+		return &media2.AddAudioDecoderConfiguration{}, nil
+	case "RemoveAudioDecoderConfiguration":
+		return &media2.RemoveAudioDecoderConfiguration{}, nil
+	case "DeleteProfile":
+		return &media2.DeleteProfile{}, nil
+	case "GetVideoSourceConfigurations":
+		return &media2.GetVideoSourceConfigurations{}, nil
+	case "GetVideoEncoderConfigurations":
+		return &media2.GetVideoEncoderConfigurations{}, nil
+	case "GetAudioSourceConfigurations":
+		return &media2.GetAudioSourceConfigurations{}, nil
+	case "GetAudioEncoderConfigurations":
+		return &media2.GetAudioEncoderConfigurations{}, nil
+	case "GetVideoAnalyticsConfigurations":
+		return &media2.GetVideoAnalyticsConfigurations{}, nil
+	case "GetMetadataConfigurations":
+		return &media2.GetMetadataConfigurations{}, nil
+	case "GetAudioOutputConfigurations":
+		return &media2.GetAudioOutputConfigurations{}, nil
+	case "GetAudioDecoderConfigurations":
+		return &media2.GetAudioDecoderConfigurations{}, nil
+	case "GetVideoSourceConfiguration":
+		return &media2.GetVideoSourceConfiguration{}, nil
+	case "GetVideoEncoderConfiguration":
+		return &media2.GetVideoEncoderConfiguration{}, nil
+	case "GetAudioSourceConfiguration":
+		return &media2.GetAudioSourceConfiguration{}, nil
+	case "GetAudioEncoderConfiguration":
+		return &media2.GetAudioEncoderConfiguration{}, nil
+	case "GetVideoAnalyticsConfiguration":
+		return &media2.GetVideoAnalyticsConfiguration{}, nil
+	case "GetMetadataConfiguration":
+		return &media2.GetMetadataConfiguration{}, nil
+	case "GetAudioOutputConfiguration":
+		return &media2.GetAudioOutputConfiguration{}, nil
+	case "GetAudioDecoderConfiguration":
+		return &media2.GetAudioDecoderConfiguration{}, nil
+	case "GetCompatibleVideoEncoderConfigurations":
+		return &media2.GetCompatibleVideoEncoderConfigurations{}, nil
+	case "GetCompatibleVideoSourceConfigurations":
+		return &media2.GetCompatibleVideoSourceConfigurations{}, nil
+	case "GetCompatibleAudioEncoderConfigurations":
+		return &media2.GetCompatibleAudioEncoderConfigurations{}, nil
+	case "GetCompatibleAudioSourceConfigurations":
+		return &media2.GetCompatibleAudioSourceConfigurations{}, nil
+	case "GetCompatibleVideoAnalyticsConfigurations":
+		return &media2.GetCompatibleVideoAnalyticsConfigurations{}, nil
+	case "GetCompatibleMetadataConfigurations":
+		return &media2.GetCompatibleMetadataConfigurations{}, nil
+	case "GetCompatibleAudioOutputConfigurations":
+		return &media2.GetCompatibleAudioOutputConfigurations{}, nil
+	case "GetCompatibleAudioDecoderConfigurations":
+		return &media2.GetCompatibleAudioDecoderConfigurations{}, nil
+	case "SetVideoSourceConfiguration":
+		return &media2.SetVideoSourceConfiguration{}, nil
+	case "SetVideoEncoderConfiguration":
+		return &media2.SetVideoEncoderConfiguration{}, nil
+	case "SetAudioSourceConfiguration":
+		return &media2.SetAudioSourceConfiguration{}, nil
+	case "SetAudioEncoderConfiguration":
+		return &media2.SetAudioEncoderConfiguration{}, nil
+	case "SetVideoAnalyticsConfiguration":
+		return &media2.SetVideoAnalyticsConfiguration{}, nil
+	case "SetMetadataConfiguration":
+		return &media2.SetMetadataConfiguration{}, nil
+	case "SetAudioOutputConfiguration":
+		return &media2.SetAudioOutputConfiguration{}, nil
+	case "SetAudioDecoderConfiguration":
+		return &media2.SetAudioDecoderConfiguration{}, nil
+	case "GetVideoSourceConfigurationOptions":
+		return &media2.GetVideoSourceConfigurationOptions{}, nil
+	case "GetVideoEncoderConfigurationOptions":
+		return &media2.GetVideoEncoderConfigurationOptions{}, nil
+	case "GetAudioSourceConfigurationOptions":
+		return &media2.GetAudioSourceConfigurationOptions{}, nil
+	case "GetAudioEncoderConfigurationOptions":
+		return &media2.GetAudioEncoderConfigurationOptions{}, nil
+	case "GetMetadataConfigurationOptions":
+		return &media2.GetMetadataConfigurationOptions{}, nil
+	case "GetAudioOutputConfigurationOptions":
+		return &media2.GetAudioOutputConfigurationOptions{}, nil
+	case "GetAudioDecoderConfigurationOptions":
+		return &media2.GetAudioDecoderConfigurationOptions{}, nil
+	case "GetGuaranteedNumberOfVideoEncoderInstances":
+		return &media2.GetGuaranteedNumberOfVideoEncoderInstances{}, nil
+	case "GetStreamUri":
+		return &media2.GetStreamUri{}, nil
+	case "StartMulticastStreaming":
+		return &media2.StartMulticastStreaming{}, nil
+	case "StopMulticastStreaming":
+		return &media2.StopMulticastStreaming{}, nil
+	case "SetSynchronizationPoint":
+		return &media2.SetSynchronizationPoint{}, nil
+	case "GetSnapshotUri":
+		return &media2.GetSnapshotUri{}, nil
+	case "GetVideoSourceModes":
+		return &media2.GetVideoSourceModes{}, nil
+	case "SetVideoSourceMode":
+		return &media2.SetVideoSourceMode{}, nil
+	case "GetOSDs":
+		return &media2.GetOSDs{}, nil
+	case "GetOSD":
+		return &media2.GetOSD{}, nil
+	case "GetOSDOptions":
+		return &media2.GetOSDOptions{}, nil
+	case "SetOSD":
+		return &media2.SetOSD{}, nil
+	case "CreateOSD":
+		return &media2.CreateOSD{}, nil
+	case "DeleteOSD":
+		return &media2.DeleteOSD{}, nil
 	default:
 		return nil, errors.New("there is no such method in the Media service")
 	}

@@ -3,7 +3,10 @@ package api
 import (
 	"errors"
 	"fmt"
+	"github.com/deepch/onvif-media2"
+	"github.com/deepch/onvif-media2/gosoap"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"path"
 	"reflect"
@@ -11,11 +14,9 @@ import (
 	"strings"
 
 	"github.com/beevik/etree"
+	"github.com/deepch/onvif-media2/networking"
+	wsdiscovery "github.com/deepch/onvif-media2/ws-discovery"
 	"github.com/gin-gonic/gin"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/gosoap"
-	"github.com/use-go/onvif/networking"
-	wsdiscovery "github.com/use-go/onvif/ws-discovery"
 )
 
 func RunApi() {
@@ -125,6 +126,8 @@ func callNecessaryMethod(serviceName, methodName, acceptedData, username, passwo
 		methodStruct, err = getPTZStructByName(methodName)
 	case "media":
 		methodStruct, err = getMediaStructByName(methodName)
+	case "media2":
+		methodStruct, err = getMedia2StructByName(methodName)
 	default:
 		return "", errors.New("there is no such service")
 	}
@@ -132,22 +135,38 @@ func callNecessaryMethod(serviceName, methodName, acceptedData, username, passwo
 		return "", err
 	}
 
-	resp, err := xmlAnalize(methodStruct, &acceptedData)
-	if err != nil {
-		return "", err
-	}
+	/*
+		resp, err := xmlAnalize(methodStruct, &acceptedData)
+		if err != nil {
+			return "", err
+		}
 
+		log.Println(serviceName, xaddr)
+	*/
 	endpoint, err := getEndpoint(serviceName, xaddr)
 	if err != nil {
 		return "", err
 	}
+	/*
+		soap := gosoap.NewEmptySOAP()
+		soap.AddStringBodyContent(*resp)
+		soap.AddRootNamespaces(onvif.Xlmns)
+		soap.AddWSSecurity(username, password)
+		log.Println("=======")
+		log.Println("endpoint", endpoint)
+		log.Println("=======")
+		log.Println(soap.String())
+		log.Println("=======")
 
+	*/
 	soap := gosoap.NewEmptySOAP()
-	soap.AddStringBodyContent(*resp)
+	soap.AddStringBodyContent(acceptedData)
 	soap.AddRootNamespaces(onvif.Xlmns)
 	soap.AddWSSecurity(username, password)
-
+	log.Println(methodStruct)
+	log.Println(soap.String())
 	servResp, err := networking.SendSoap(new(http.Client), endpoint, soap.String())
+	log.Println(servResp, err)
 	if err != nil {
 		return "", err
 	}
@@ -166,17 +185,18 @@ func getEndpoint(service, xaddr string) (string, error) {
 		return "", err
 	}
 	pkg := strings.ToLower(service)
-
 	var endpoint string
 	switch pkg {
 	case "device":
-		endpoint = dev.GetEndpoint("Device")
+		endpoint = dev.GetEndpoint("device")
 	case "event":
-		endpoint = dev.GetEndpoint("Event")
+		endpoint = dev.GetEndpoint("event")
 	case "imaging":
-		endpoint = dev.GetEndpoint("Imaging")
+		endpoint = dev.GetEndpoint("imaging")
 	case "media":
-		endpoint = dev.GetEndpoint("Media")
+		endpoint = dev.GetEndpoint("media")
+	case "media2":
+		endpoint = dev.GetEndpoint("media")
 	case "ptz":
 		endpoint = dev.GetEndpoint("PTZ")
 	}
