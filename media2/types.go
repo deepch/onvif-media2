@@ -500,6 +500,12 @@ type SetVideoAnalyticsConfiguration struct {
 	ForcePersistence bool                              `xml:"tr2:ForcePersistence"`
 }
 
+type SetVideoAnalyticsConfigurations struct {
+	XMLName          string                            `xml:"tr2:SetVideoAnalyticsConfiguration"`
+	Configurations    onvif.VideoAnalyticsConfiguration `xml:"tr2:Configurations"`
+	ForcePersistence bool                              `xml:"tr2:ForcePersistence"`
+}
+
 type SetVideoAnalyticsConfigurationResponse struct {
 }
 
